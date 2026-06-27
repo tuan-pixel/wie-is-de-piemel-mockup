@@ -436,15 +436,22 @@ em { color: var(--blush); font-weight: 400; }
 .package-price { margin: 28px 0; display: flex; align-items: end; gap: 9px; }
 .package-price small { padding-bottom: 5px; color: var(--muted); font-size: 8px; }
 .package-price strong { font-family: var(--serif); font-size: 43px; font-weight: 400; }
-.package-card details { border-top: 1px solid var(--line); }
-.package-card.is-featured details { border-color: rgba(255,255,255,.14); }
-.package-card summary { padding: 17px 0; display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; cursor: pointer; list-style: none; }
-.package-card summary::-webkit-details-marker { display: none; }
-.package-card details[open] summary span { transform: rotate(45deg); }
-.package-card details ul { margin: 0 0 18px; padding: 0; display: grid; gap: 9px; list-style: none; }
-.package-card details li { padding-left: 17px; position: relative; color: var(--muted); font-size: 10px; }
-.package-card.is-featured details li { color: #c8bdc7; }
-.package-card details li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); }
+.package-details {
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: inherit;
+  background: transparent;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.package-card.is-featured .package-details { border-color: rgba(255,255,255,.14); }
 .package-choose {
   width: 100%;
   padding: 15px 0 7px;
@@ -462,7 +469,7 @@ em { color: var(--blush); font-weight: 400; }
 }
 .package-card.is-featured .package-choose { border-color: rgba(255,255,255,.14); }
 .package-carousel-ui {
-  margin-top: 13px;
+  margin: 0 0 14px;
   display: grid;
   grid-template-columns: 65px 1fr 65px;
   align-items: center;
@@ -487,6 +494,55 @@ em { color: var(--blush); font-weight: 400; }
   transition: width .25s, background .25s;
 }
 .package-dots i.is-active { width: 38px; background: var(--aubergine-700); }
+
+.package-modal-card { text-align: left; }
+.package-modal-icon {
+  width: 68px;
+  height: 68px;
+  margin: 25px 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-light);
+  font-family: var(--serif);
+  font-size: 30px;
+}
+.package-modal-card h2 { margin-bottom: 5px; }
+.package-modal-price { color: var(--gold-light) !important; font-family: var(--serif); font-size: 22px !important; }
+.package-modal-list { margin: 25px 0; padding: 0; display: grid; gap: 12px; list-style: none; }
+.package-modal-list li {
+  padding: 0 0 11px 23px;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,.11);
+  color: #d1c5cf;
+  font-size: 10px;
+}
+.package-modal-list li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); }
+
+@media (max-width: 719px) {
+  .packages { padding: 58px 0 92px; }
+  .packages .section-heading { margin-bottom: 20px; padding: 0 22px; }
+  .packages .section-label { margin-bottom: 23px; }
+  .packages .section-heading .eyebrow { margin-bottom: 12px; }
+  .packages .section-heading h2 { margin-bottom: 0; font-size: 43px; line-height: .92; }
+  .package-carousel-ui { margin: 0 22px 14px; }
+  .package-grid { padding-top: 4px; }
+  .package-card {
+    height: min(570px, calc(100svh - 145px));
+    min-height: 510px;
+    padding: 24px 22px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .package-card-top { margin-bottom: 27px; }
+  .package-icon { width: 50px; height: 50px; }
+  .package-card h3 { margin-bottom: 9px; font-size: 33px; }
+  .package-card > p:not(.eyebrow) { min-height: 38px; margin-bottom: 0; }
+  .package-price { margin: 19px 0; }
+  .package-price strong { font-size: 39px; }
+  .package-details { margin-top: auto; }
+}
 
 .configurator {
   color: var(--white);
@@ -948,7 +1004,7 @@ em { color: var(--blush); font-weight: 400; }
   .intro-stats { max-width: 780px; }
   .section-heading { max-width: 780px; }
   .package-card { min-height: 660px; display: flex; flex-direction: column; }
-  .package-card details { margin-top: auto; }
+  .package-details { margin-top: auto; }
   .configurator-copy { position: sticky; top: 130px; }
   .addon-tile { min-height: 190px; }
   .review-card blockquote { min-height: 190px; font-size: 35px; }
