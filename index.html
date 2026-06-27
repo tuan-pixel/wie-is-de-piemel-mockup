@@ -95,6 +95,11 @@
         <h2>Drie pakketten.<br><em>Eén onvergetelijk verhaal.</em></h2>
       </div>
       <div class="package-grid" id="package-grid"></div>
+      <div class="package-carousel-ui" aria-hidden="true">
+        <span class="package-count"><b id="package-current">1</b> / 3</span>
+        <div class="package-dots" id="package-dots"><i class="is-active"></i><i></i><i></i></div>
+        <span>Swipe →</span>
+      </div>
     </section>
 
     <section class="configurator section" id="configurator">
@@ -209,7 +214,12 @@
     <p>© 2026</p>
   </footer>
 
-  <a class="mobile-order" href="#configurator"><span>Stel je pakket samen</span><strong>vanaf €199 →</strong></a>
+  <nav class="mobile-bottom-nav" aria-label="Snelle navigatie">
+    <a href="#spel" data-mobile-section="spel"><span aria-hidden="true">◇</span><small>Spel</small></a>
+    <a href="#pakketten" data-mobile-section="pakketten"><span aria-hidden="true">▱</span><small>Pakketten</small></a>
+    <a class="mobile-bottom-main" href="#configurator" data-mobile-section="configurator"><span aria-hidden="true">+</span><small>Samenstellen</small></a>
+    <a href="#faq" data-mobile-section="faq"><span aria-hidden="true">?</span><small>FAQ</small></a>
+  </nav>
 
   <div class="demo-modal" id="demo-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="demo-title">
     <div class="demo-card">
