@@ -94,12 +94,12 @@
         <p class="eyebrow">KIES JULLIE AVOND</p>
         <h2>Drie pakketten.<br><em>Eén onvergetelijk verhaal.</em></h2>
       </div>
-      <div class="package-grid" id="package-grid"></div>
       <div class="package-carousel-ui" aria-hidden="true">
         <span class="package-count"><b id="package-current">1</b> / 3</span>
         <div class="package-dots" id="package-dots"><i class="is-active"></i><i></i><i></i></div>
         <span>Swipe →</span>
       </div>
+      <div class="package-grid" id="package-grid"></div>
     </section>
 
     <section class="configurator section" id="configurator">
@@ -229,6 +229,18 @@
       <h2 id="demo-title">Welkom dames…</h2>
       <p>Jullie eerste missie is simpel: kies degene die het bruidspaar het beste kent. Zij ontvangt de eerste geheime envelop.</p>
       <button class="button button-gold demo-close-action" type="button">Opdracht begrepen</button>
+    </div>
+  </div>
+
+  <div class="demo-modal package-modal" id="package-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="package-modal-title">
+    <div class="demo-card package-modal-card">
+      <button class="demo-close package-modal-close" type="button" aria-label="Pakketinhoud sluiten">×</button>
+      <span class="demo-round">DIT ZIT ERIN</span>
+      <div class="package-modal-icon" aria-hidden="true">◇</div>
+      <h2 id="package-modal-title">Pakket</h2>
+      <p class="package-modal-price"></p>
+      <ul class="package-modal-list"></ul>
+      <button class="button button-gold package-modal-choose" type="button">Kies dit pakket <span>→</span></button>
     </div>
   </div>
 

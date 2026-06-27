@@ -12,6 +12,7 @@ export function initConfigurator() {
   const addonOptions = document.querySelector("#addon-options");
   const addonShowcase = document.querySelector("#addon-showcase");
   const summary = document.querySelector("#order-summary");
+  const packageModal = document.querySelector("#package-modal");
   if (!packageGrid || !packageOptions || !addonOptions || !summary) return;
 
   let selectedPackage = packages[1];
@@ -28,10 +29,7 @@ export function initConfigurator() {
       <h3>${item.name}</h3>
       <p>${item.description}</p>
       <div class="package-price"><small>vanaf</small><strong>${euro.format(item.price)}</strong></div>
-      <details>
-        <summary>Wat zit erin? <span>+</span></summary>
-        <ul>${item.features.map((feature) => `<li>${feature}</li>`).join("")}</ul>
-      </details>
+      <button class="package-details" type="button" data-package-details="${item.id}">Bekijk de inhoud <span>+</span></button>
       <button class="package-choose" type="button" data-select-package="${item.id}">Kies dit pakket <span>→</span></button>
     </article>
   `).join("");
@@ -115,6 +113,21 @@ export function initConfigurator() {
   });
 
   packageGrid.addEventListener("click", (event) => {
+    const detailsButton = event.target.closest("[data-package-details]");
+    if (detailsButton && packageModal) {
+      const item = packages.find((entry) => entry.id === detailsButton.dataset.packageDetails);
+      if (!item) return;
+      packageModal.querySelector("#package-modal-title").textContent = item.name;
+      packageModal.querySelector(".package-modal-price").textContent = `vanaf ${euro.format(item.price)}`;
+      packageModal.querySelector(".package-modal-list").innerHTML = item.features.map((feature) => `<li>${feature}</li>`).join("");
+      packageModal.querySelector(".package-modal-choose").dataset.chooseModalPackage = item.id;
+      packageModal.classList.add("is-open");
+      packageModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      packageModal.querySelector(".package-modal-close")?.focus();
+      return;
+    }
+
     const button = event.target.closest("[data-select-package]");
     if (!button) return;
     selectedPackage = packages.find((item) => item.id === button.dataset.selectPackage) ?? selectedPackage;
@@ -122,6 +135,29 @@ export function initConfigurator() {
     if (radio) radio.checked = true;
     renderSummary();
     document.querySelector("#configurator")?.scrollIntoView({ behavior: "smooth" });
+  });
+
+  const closePackageModal = () => {
+    if (!packageModal) return;
+    packageModal.classList.remove("is-open");
+    packageModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  packageModal?.querySelector(".package-modal-close")?.addEventListener("click", closePackageModal);
+  packageModal?.addEventListener("click", (event) => {
+    if (event.target === packageModal) closePackageModal();
+  });
+  packageModal?.querySelector(".package-modal-choose")?.addEventListener("click", (event) => {
+    selectedPackage = packages.find((item) => item.id === event.currentTarget.dataset.chooseModalPackage) ?? selectedPackage;
+    const radio = packageOptions.querySelector(`[value="${selectedPackage.id}"]`);
+    if (radio) radio.checked = true;
+    renderSummary();
+    closePackageModal();
+    document.querySelector("#configurator")?.scrollIntoView({ behavior: "smooth" });
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && packageModal?.classList.contains("is-open")) closePackageModal();
   });
 
   addonShowcase?.addEventListener("click", (event) => {
