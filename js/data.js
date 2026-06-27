@@ -5,6 +5,8 @@ export const packages = [
     price: 199,
     eyebrow: "Compact & compleet",
     description: "Alles voor een hilarische avond op één locatie.",
+    image: "assets/package-basis.webp",
+    imageAlt: "Zwarte Basis Doos van Wie is de Piemel",
     features: [
       "Spelmateriaal thuisbezorgd",
       "QR-spelrondes",
@@ -20,6 +22,8 @@ export const packages = [
     eyebrow: "Meest gekozen",
     featured: true,
     description: "Georganiseerd, draagbaar en klaar voor jullie route.",
+    image: "assets/package-party.webp",
+    imageAlt: "Roze Party Bag van Wie is de Piemel",
     features: [
       "Alles uit Basis",
       "Stijlvolle meeneemtas",
@@ -33,6 +37,8 @@ export const packages = [
     price: 299,
     eyebrow: "The full experience",
     description: "De premium uitvoering en meteen een cadeau voor de bride-to-be.",
+    image: "assets/package-luxe.webp",
+    imageAlt: "Zwarte gewatteerde Luxe Bride Bag van Wie is de Piemel",
     features: [
       "Alles uit Party Bag",
       "Chiquere tas",
