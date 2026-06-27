@@ -21,9 +21,9 @@ export function initConfigurator() {
   packageGrid.innerHTML = packages.map((item, index) => `
     <article class="package-card reveal ${item.featured ? "is-featured" : ""}" data-package-card="${item.id}">
       ${item.featured ? '<span class="popular-label">Meest gekozen</span>' : ""}
-      <div class="package-card-top">
+      <div class="package-card-visual">
+        <img src="${item.image}" alt="${item.imageAlt}" loading="${index === 0 ? "eager" : "lazy"}" width="900" height="900">
         <span class="package-number">0${index + 1}</span>
-        <span class="package-icon">${index === 0 ? "□" : index === 1 ? "▱" : "◇"}</span>
       </div>
       <p class="eyebrow">${item.eyebrow}</p>
       <h3>${item.name}</h3>
@@ -118,6 +118,9 @@ export function initConfigurator() {
       const item = packages.find((entry) => entry.id === detailsButton.dataset.packageDetails);
       if (!item) return;
       packageModal.querySelector("#package-modal-title").textContent = item.name;
+      const modalImage = packageModal.querySelector(".package-modal-image");
+      modalImage.src = item.image;
+      modalImage.alt = item.imageAlt;
       packageModal.querySelector(".package-modal-price").textContent = `vanaf ${euro.format(item.price)}`;
       packageModal.querySelector(".package-modal-list").innerHTML = item.features.map((feature) => `<li>${feature}</li>`).join("");
       packageModal.querySelector(".package-modal-choose").dataset.chooseModalPackage = item.id;
