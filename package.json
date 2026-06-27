@@ -1,0 +1,9 @@
+{
+  "name": "wie-is-de-piemel-mockup",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check js/app.js && node --check js/data.js && node --check js/components/configurator.js && node --check js/components/gameFlow.js && node --check js/components/reviews.js && node --check js/components/faq.js"
+  }
+}
