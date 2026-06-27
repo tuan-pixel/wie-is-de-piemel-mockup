@@ -527,7 +527,7 @@ em { color: var(--blush); font-weight: 400; }
   .packages .section-heading .eyebrow { margin-bottom: 12px; }
   .packages .section-heading h2 { margin-bottom: 0; font-size: 43px; line-height: .92; }
   .package-carousel-ui { margin: 0 22px 14px; }
-  .package-grid { padding-top: 4px; }
+  .package-grid { margin: 0; padding-top: 4px; }
   .package-card {
     height: min(570px, calc(100svh - 145px));
     min-height: 510px;
