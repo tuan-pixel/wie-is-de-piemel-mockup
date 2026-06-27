@@ -36,6 +36,25 @@ export function initConfigurator() {
     </article>
   `).join("");
 
+  const packageCurrent = document.querySelector("#package-current");
+  const packageDots = [...document.querySelectorAll("#package-dots i")];
+  const packageCards = [...packageGrid.querySelectorAll(".package-card")];
+  let carouselFrame;
+
+  const updatePackageCarousel = () => {
+    window.cancelAnimationFrame(carouselFrame);
+    carouselFrame = window.requestAnimationFrame(() => {
+      const card = packageCards[0];
+      if (!card) return;
+      const gap = Number.parseFloat(getComputedStyle(packageGrid).columnGap) || 18;
+      const active = Math.min(packageCards.length - 1, Math.max(0, Math.round(packageGrid.scrollLeft / (card.offsetWidth + gap))));
+      if (packageCurrent) packageCurrent.textContent = String(active + 1);
+      packageDots.forEach((dot, index) => dot.classList.toggle("is-active", index === active));
+    });
+  };
+
+  packageGrid.addEventListener("scroll", updatePackageCarousel, { passive: true });
+
   packageOptions.innerHTML = packages.map((item) => `
     <label class="choice-pill ${item.id === selectedPackage.id ? "is-selected" : ""}">
       <input type="radio" name="package" value="${item.id}" ${item.id === selectedPackage.id ? "checked" : ""}>
@@ -118,4 +137,5 @@ export function initConfigurator() {
   });
 
   renderSummary();
+  updatePackageCarousel();
 }

@@ -21,6 +21,53 @@ mobileNav?.addEventListener("click", () => {
   mobileNav.classList.remove("is-open");
 });
 
+const bottomNav = document.querySelector(".mobile-bottom-nav");
+const bottomLinks = [...document.querySelectorAll("[data-mobile-section]")];
+const bottomSections = bottomLinks
+  .map((link) => document.querySelector(`#${link.dataset.mobileSection}`))
+  .filter(Boolean);
+const heroSection = document.querySelector(".hero");
+const finalSection = document.querySelector(".final-cta");
+const configuratorSection = document.querySelector("#configurator");
+
+if (bottomNav && "IntersectionObserver" in window) {
+  let heroVisible = true;
+  const blockedZones = new Set();
+
+  const updateBottomNav = () => {
+    bottomNav.classList.toggle("is-visible", !heroVisible && blockedZones.size === 0);
+  };
+
+  if (heroSection) {
+    new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      updateBottomNav();
+    }, { threshold: 0.12 }).observe(heroSection);
+  }
+
+  const blockObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.isIntersecting ? blockedZones.add(entry.target) : blockedZones.delete(entry.target);
+    });
+    updateBottomNav();
+  }, { threshold: 0.12 });
+  [configuratorSection, finalSection].filter(Boolean).forEach((section) => blockObserver.observe(section));
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    bottomLinks.forEach((link) => {
+      const active = link.dataset.mobileSection === visible.target.id;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  }, { rootMargin: "-22% 0px -58% 0px", threshold: [0, .2, .5] });
+  bottomSections.forEach((section) => spyObserver.observe(section));
+}
+
 const progress = document.querySelector(".scroll-progress span");
 function updateScrollProgress() {
   if (!progress) return;
